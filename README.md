@@ -5,6 +5,8 @@ Perception-conditioned Robotic Action Network with Attention
 PRANA is a vision-language-action policy that generates temporally consistent robot actions from multimodal perception using Transformers.
 
 
+DATASET: https://huggingface.co/datasets/Siddarth09/PRANA
+
 Task: Pick a screwdriver and place it in the box 
 
 https://github.com/user-attachments/assets/1ceb2238-2c40-4b45-88dc-5e6f3a075ec1
