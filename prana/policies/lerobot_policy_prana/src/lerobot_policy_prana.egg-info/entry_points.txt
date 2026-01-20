@@ -1,0 +1,2 @@
+[lerobot.policy]
+prana = lerobot_policy_prana

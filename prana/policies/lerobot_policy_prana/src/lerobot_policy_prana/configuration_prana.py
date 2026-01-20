@@ -6,8 +6,9 @@ from lerobot.configs.types import NormalizationMode
 from lerobot.optim.optimizers import AdamWConfig 
 
 
-@PreTrainedConfig.register_subclass("prana_v0")
-@dataclass 
+@PreTrainedConfig.register_subclass("prana")
+@dataclass
+
 
 class PranaAct0Config(PreTrainedConfig):
     """
@@ -41,7 +42,7 @@ class PranaAct0Config(PreTrainedConfig):
     # Vision Backbone 
 
     vision_backbone:str = "resnet18"
-    pretrained_backbone_weights: str | None = "ResNet18_Weights.IMAGENET1k_V1"
+    pretrained_backbone_weights: str | None = "ResNet18_Weights.IMAGENET1K_V1"
     replace_final_stride_with_dilation:int = False 
 
     # Transform Layers 
@@ -49,7 +50,7 @@ class PranaAct0Config(PreTrainedConfig):
     dim_model: int = 512  #token embedding dimension
     n_heads: int = 8  #number of attention heads 
     dim_feedforward:int = 3200 # hidden size inside the mlp part of transformer blocks
-    feedforward_activation= str= "relu" #Mlp nonlinearity 
+    feedforward_activation: str= "relu" #Mlp nonlinearity 
     n_encoder_layer: int = 4  #How many encoder layers in the main act transformer 
 
     n_decoder_layer: int = 1 #How many decoder layers in the transformer 

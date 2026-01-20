@@ -1,13 +1,15 @@
 # PRANA
 
-Perception-conditioned Robotic Action Network with Attention
+**Perception-conditioned Robotic Action Network with Attention**
 
 PRANA is a vision-language-action policy that generates temporally consistent robot actions from multimodal perception using Transformers.
 
 
-DATASET: https://huggingface.co/datasets/Siddarth09/PRANA
+**DATASET**: https://huggingface.co/datasets/Siddarth09/PRANA
 
-Task: Pick a screwdriver and place it in the box 
+**POLICY**: https://huggingface.co/Siddarth09/prana
+
+**TASK**: Pick a screwdriver and place it in the box 
 
 https://github.com/user-attachments/assets/1ceb2238-2c40-4b45-88dc-5e6f3a075ec1
 
@@ -89,3 +91,17 @@ lerobot-record \
 ### SCENE: 
 
 ![Image](https://github.com/user-attachments/assets/acc93f20-19f5-4e54-bc77-54556764603d)
+
+
+
+### TRAINING 
+
+```bash
+
+lerobot-train   --dataset.repo_id=Siddarth09/PRANA   --dataset.video_backend=pyav   --dataset.image_transforms.enable=false   --policy.type=prana   --policy.device=cuda   --policy.camera_order='["observation.images.table","observation.images.wrist"]'   --rename_map='{
+    "observation.images.front": "observation.images.table",
+    "observation.images.wrist": "observation.images.wrist"
+  }'   --batch_size=1   --num_workers=0   --steps=30000   --policy.push_to_hub=false
+
+```
+

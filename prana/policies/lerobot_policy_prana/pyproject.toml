@@ -1,0 +1,12 @@
+[project]
+name = "lerobot_policy_prana"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.entry-points."lerobot.policy"]
+prana = "lerobot_policy_prana"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
