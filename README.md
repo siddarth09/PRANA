@@ -44,10 +44,7 @@ lerobot-teleoperate   --robot.type=so101_follower   --robot.port=/dev/ttyACM0   
 
 ```bash
 
-lerobot-record \
-  --robot.type=so101_follower \
-  --robot.port=/dev/ttyACM0 \
-  --robot.cameras='{
+lerobot-record   --robot.type=so101_follower   --robot.port=/dev/ttyACM0   --robot.cameras='{
     table: {
       "type": "intelrealsense",
       "serial_number_or_name": "103422071945",
@@ -62,16 +59,9 @@ lerobot-record \
       "height": 480,
       "fps": 30
     }
-  }' \
-  --teleop.type=so101_leader \
-  --teleop.port=/dev/ttyACM1 \
-  --dataset.repo_id=local/prana_pick_place \
-  --dataset.single_task="Pick the object and place it at the target location" \
-  --dataset.num_episodes=40 \
-  --dataset.episode_time_s=15 \
-  --dataset.reset_time_s=10 \
-  --dataset.fps=30 \
-  --display_data=true
+  }'   --teleop.type=so101_leader   --teleop.port=/dev/ttyACM1   --dataset.repo_id=Siddarth09/PRANA   --dataset.single_task="Pick the screwdriver and place it in the box"   --dataset.num_episodes=2   --dataset.episode_time_s=25   --dataset.reset_time_s=10   --dataset.fps=30   --display_data=true --resume=true --dataset.push_to_hub=false
+
+
 ```
 
 
@@ -101,7 +91,35 @@ lerobot-record \
 lerobot-train   --dataset.repo_id=Siddarth09/PRANA   --dataset.video_backend=pyav   --dataset.image_transforms.enable=false   --policy.type=prana   --policy.device=cuda   --policy.camera_order='["observation.images.table","observation.images.wrist"]'   --rename_map='{
     "observation.images.front": "observation.images.table",
     "observation.images.wrist": "observation.images.wrist"
-  }'   --batch_size=1   --num_workers=0   --steps=30000   --policy.push_to_hub=false
+  }'   --batch_size=1   --num_workers=0   --steps=85000   --policy.push_to_hub=false --output_dir=outputs/train/prana --wandb.enable=true --policy.repo_id=Siddarth09/prana
+
+
 
 ```
 
+
+### TO Play the policy 
+
+```bash 
+
+lerobot-record   --robot.type=so101_follower   --robot.port=/dev/ttyACM0   --robot.cameras='{
+    table: {
+      "type": "intelrealsense",
+      "serial_number_or_name": "103422071945",
+      "width": 640,
+      "height": 480,
+      "fps": 30
+    },
+    wrist: {
+      "type": "opencv",
+      "index_or_path": "/dev/video4",
+      "width": 640,
+      "height": 480,
+      "fps": 30
+    }
+  }'   --teleop.type=so101_leader   --teleop.port=/dev/ttyACM1   --display_data=true   --dataset.repo_id=Siddarth09/eval_prana_pick_place   --dataset.num_episodes=5   --dataset.single_task="Pick the screwdriver and place it in the box"   --dataset.push_to_hub=false   --policy.path=outputs/train/prana/checkpoints/last/pretrained_model   --policy.device=cuda --display_data=true
+
+
+
+
+```
