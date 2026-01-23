@@ -13,7 +13,7 @@ def load_prana_dataset(
     """
     ds = LeRobotDataset(
         repo_id=repo_id,
-        root=root,              # None → uses ~/.cache/huggingface/lerobot
+        root=root,             
         download_videos=False,  # set True only if you need images now
     )
     return ds

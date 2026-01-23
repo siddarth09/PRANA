@@ -1,0 +1,97 @@
+# --------------------
+# Python cache
+# --------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+
+# --------------------
+# Virtual environments
+# --------------------
+venv/
+.venv/
+env/
+lerobot_env/
+
+# --------------------
+# OS / Editor
+# --------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --------------------
+# Logs & debug
+# --------------------
+*.log
+*.out
+*.err
+core
+core.*
+
+# --------------------
+# LeRobot / Training outputs
+# --------------------
+outputs/
+checkpoints/
+runs/
+wandb/
+
+# --------------------
+# Torch / CUDA
+# --------------------
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+torch_compile_cache/
+
+# --------------------
+# HuggingFace cache
+# --------------------
+.cache/
+hf_cache/
+huggingface_cache/
+~/.cache/huggingface/
+
+# --------------------
+# Dataset artifacts
+# --------------------
+data/
+datasets/
+*.parquet
+*.arrow
+
+# --------------------
+# Videos / images (generated)
+# --------------------
+captured_images/
+*.mp4
+*.avi
+*.gif
+
+# --------------------
+# Temporary files
+# --------------------
+tmp/
+temp/
+*.tmp
+
+# --------------------
+# Compiled extensions
+# --------------------
+build/
+dist/
+
+# --------------------
+# NumPy / SciPy artifacts
+# --------------------
+*.npy
+*.npz
