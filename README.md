@@ -118,8 +118,11 @@ lerobot-record   --robot.type=so101_follower   --robot.port=/dev/ttyACM0   --rob
       "fps": 30
     }
   }'   --teleop.type=so101_leader   --teleop.port=/dev/ttyACM1   --display_data=true   --dataset.repo_id=Siddarth09/eval_prana_pick_place   --dataset.num_episodes=5   --dataset.single_task="Pick the screwdriver and place it in the box"   --dataset.push_to_hub=false   --policy.path=outputs/train/prana/checkpoints/last/pretrained_model   --policy.device=cuda --display_data=true
-
-
-
-
 ```
+
+## PRANA in Action
+
+
+https://github.com/user-attachments/assets/66d3e3f6-ee64-4bb2-8b1f-c2aefe7c35a6
+
+
