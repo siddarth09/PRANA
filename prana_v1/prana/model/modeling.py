@@ -55,10 +55,24 @@ class PranaVLA(nn.Module):
 
     def forward(self,image: torch.Tensor, state: torch.Tensor, lang_token: torch.Tensor)->torch.Tensor:
 
-        batch_size = image.shape[0]
+        if isinstance(image, list):
+            
+            batch_size = image[0].shape[0]
+            
+            all_v_tokens = []
+            for img in image:
+                all_v_tokens.append(self.vision_encoder(img)) 
+            
+            # Stitch patches together: [Batch, Patches * 2, Dim]
+            v_tokens = torch.cat(all_v_tokens, dim=1) 
+            
+        else:
+            # Fallback for a single image tensor
+            batch_size = image.shape[0]
+            v_tokens = self.vision_encoder(image)
+  
 
-        # Encode all modalities together 
-        v_tokens = self.vision_encoder(image)
+        
         l_tokens = self.language_encoder(lang_token)
         s_tokens = self.state_encoder(state)
 
