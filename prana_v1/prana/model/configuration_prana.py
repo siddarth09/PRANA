@@ -13,7 +13,6 @@ class PranaConfig(PreTrainedConfig):
     hidden_dim: int = 256
     vocab_size: int = 256000
     
-    # Let LeRobot handle 'image_features' internally, only parse 'camera_order'
     camera_order: list[str] = field(default_factory=lambda: ["observation.images.table", "observation.images.wrist"])
     
     normalization_mapping: dict[str, NormalizationMode] = field(
