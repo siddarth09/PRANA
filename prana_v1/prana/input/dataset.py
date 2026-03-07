@@ -10,7 +10,7 @@ from transformers import AutoTokenizer
 
 class PranaDataset(Dataset):
     """
-    Streams paraquet data natively and outputs temporal action chunks 
+    Streams parquet data natively and outputs temporal action chunks 
     """
 
     def __init__(self, data_dir: str, chunk_size: int = 50, camera_name: str = "top"):
