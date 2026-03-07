@@ -34,8 +34,22 @@ def custom_make_pre_post(policy_cfg, pretrained_path=None, **kwargs):
 factory.make_pre_post_processors = custom_make_pre_post
 
 def main():
-    checkpoint_path = "/home/sid/projects25/src/PRANA/prana_v1/outputs/train/prana/checkpoints/last/pretrained_model"
-    
+    # Determine checkpoint path: CLI arg > env var > default relative to PROJECT_ROOT
+    if len(sys.argv) > 1:
+        checkpoint_path = sys.argv[1]
+    else:
+        checkpoint_path = os.environ.get(
+            "PRANA_CHECKPOINT_PATH",
+            os.path.join(
+                PROJECT_ROOT,
+                "outputs",
+                "train",
+                "prana",
+                "checkpoints",
+                "last",
+                "pretrained_model",
+            ),
+        )
     print(f"Loading policy from: {checkpoint_path}...")
     try:
         policy = PranaPolicy.from_pretrained(checkpoint_path)
