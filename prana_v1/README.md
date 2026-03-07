@@ -1,4 +1,4 @@
-### The Architecture: PranaVLA (Phase 1.5)
+### The Architecture: PranaVLA (Phase 1.5) (DOCUMENTATION BY GEMINI)
 
 
 1. **Sensory Encoders (The Inputs)**
@@ -16,10 +16,7 @@
 
 
 
-You can copy and paste the following directly into your repository's `README.md` file:
-
-```markdown
-# PranaVLA (Phase 1.5) 🤖
+# PranaVLA (Phase 1.5) 
 
 PranaVLA is a custom Vision-Language-Action (VLA) neural network policy integrated into the [Hugging Face LeRobot](https://github.com/huggingface/lerobot) framework. This repository provides the architecture, training pipeline, and deployment scripts necessary to train a Transformer-based imitation learning policy and deploy it directly onto physical robotic hardware.
 
