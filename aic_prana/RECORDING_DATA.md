@@ -108,7 +108,9 @@ export PYTHONNOUSERSITE=1
 pixi run lerobot-record \
   --robot.type=aic_controller --robot.id=aic \
   --teleop.type=aic_keyboard_ee --teleop.id=aic \
-  --robot.teleop_target_mode=cartesian --robot.teleop_frame_id=base_link \
+  --teleop.high_command_scaling=0.3 \
+  --teleop.low_command_scaling=0.05 \
+  --robot.teleop_target_mode=cartesian --robot.teleop_frame_id=gripper/tcp \
   --dataset.repo_id=Siddarth09/aic_cable_insertion \
   --dataset.single_task="Insert the fiber optic cable into the target port on the task board" \
   --dataset.push_to_hub=false \
@@ -158,7 +160,7 @@ Each scenario varies: board position, board yaw, which mounts/ports are present,
 ```bash
 /entrypoint.sh spawn_task_board:=true \
     task_board_x:=0.25 task_board_y:=-0.10 task_board_z:=1.14 \
-    task_board_roll:=0.0 task_board_pitch:=0.0 task_board_yaw:=0.0 \
+    task_board_roll:=0.0 task_board_pitch:=0.0 task_board_yaw:=3.14\
     sfp_mount_rail_0_present:=true sfp_mount_rail_0_translation:=-0.05 \
     sc_mount_rail_0_present:=true sc_mount_rail_0_translation:=-0.04 \
     nic_card_mount_0_present:=true nic_card_mount_0_translation:=0.005 \
@@ -179,7 +181,7 @@ Each scenario varies: board position, board yaw, which mounts/ports are present,
     sc_mount_rail_1_present:=true sc_mount_rail_1_translation:=0.05 \
     nic_card_mount_2_present:=true nic_card_mount_2_translation:=-0.01 \
     sc_port_1_present:=true sc_port_1_translation:=0.02 \
-    spawn_cable:=true cable_type:=sfp_sc_cable_reversed attach_cable_to_gripper:=true \
+    spawn_cable:=true cable_type:=sfp_sc_cable attach_cable_to_gripper:=true \
     ground_truth:=true start_aic_engine:=false
 ```
 
@@ -320,7 +322,7 @@ Each scenario varies: board position, board yaw, which mounts/ports are present,
     lc_mount_rail_1_present:=true lc_mount_rail_1_translation:=0.03 \
     nic_card_mount_0_present:=true nic_card_mount_0_translation:=-0.01 \
     sc_port_1_present:=true sc_port_1_translation:=-0.02 \
-    spawn_cable:=true cable_type:=sfp_sc_cable_reversed attach_cable_to_gripper:=true \
+    spawn_cable:=true cable_type:=sfp_sc_cable attach_cable_to_gripper:=true \
     ground_truth:=true start_aic_engine:=false
 ```
 
@@ -373,7 +375,7 @@ Each scenario varies: board position, board yaw, which mounts/ports are present,
     nic_card_mount_2_present:=true nic_card_mount_2_translation:=0.0 \
     sc_port_0_present:=true sc_port_0_translation:=0.02 \
     sc_port_1_present:=true sc_port_1_translation:=-0.04 \
-    spawn_cable:=true cable_type:=sfp_sc_cable attach_cable_to_gripper:=true \
+    spawn_cable:=true cable_type:=sfp_sc_cable_reversed  attach_cable_to_gripper:=true \
     ground_truth:=true start_aic_engine:=false
 ```
 
