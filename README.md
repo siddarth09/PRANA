@@ -354,7 +354,7 @@ Standard imitation learning predicts actions via regression (L1/MSE), which lear
 **Correlated noise** (from empirical action covariance) makes denoising easier — the starting noise already has temporal smoothness and joint coordination of real trajectories.
 
 ---
-
+```bash
 lerobot-record   --robot.type=so101_follower   --robot.port=/dev/ttyACM0   --robot.cameras='{
     table: {
       "type": "intelrealsense",
