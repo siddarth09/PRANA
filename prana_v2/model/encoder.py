@@ -15,9 +15,8 @@ import timm
 
 class VisionEncoder(nn.Module):
     """
-    Frozen pretrained ViT with camera-ID embeddings.
-    Each camera gets a learned embedding added to all its patch tokens
-    so the transformer knows which viewpoint produced each token.
+    Frozen pretrained vision backbone with camera-ID embeddings.
+    Supports both ViT-style (token output) and CNN-style (spatial output) backbones.
     """
 
     def __init__(
@@ -36,13 +35,36 @@ class VisionEncoder(nn.Module):
             num_classes=0,
             global_pool="",
         )
-        vit_embed_dim = self.backbone.embed_dim  # 192 for vit_tiny
+
+        # ── Detect backbone embed dim ──────────────────────────────────
+        # Run a dummy forward to get the output shape
+        with torch.no_grad():
+            dummy = torch.randn(1, 3, 224, 224)
+            dummy_out = self.backbone(dummy)
+
+        if dummy_out.dim() == 3:
+            # ViT-style: [B, num_tokens, embed_dim]
+            self.backbone_type = "vit"
+            backbone_dim = dummy_out.shape[-1]
+        elif dummy_out.dim() == 4:
+            if dummy_out.shape[1] > dummy_out.shape[-1]:
+                # CNN-style: [B, C, H, W] — channels first
+                self.backbone_type = "cnn_chw"
+                backbone_dim = dummy_out.shape[1]
+            else:
+                # Swin-style: [B, H, W, C] — channels last
+                self.backbone_type = "cnn_hwc"
+                backbone_dim = dummy_out.shape[-1]
+        else:
+            raise ValueError(f"Unexpected backbone output shape: {dummy_out.shape}")
+
+        self.backbone_dim = backbone_dim
 
         # ── Freeze / selective unfreeze ────────────────────────────────
         if freeze_backbone:
             for param in self.backbone.parameters():
                 param.requires_grad = False
-            if unfreeze_last_n_blocks > 0:
+            if unfreeze_last_n_blocks > 0 and hasattr(self.backbone, "blocks"):
                 for block in self.backbone.blocks[-unfreeze_last_n_blocks:]:
                     for param in block.parameters():
                         param.requires_grad = True
@@ -51,19 +73,35 @@ class VisionEncoder(nn.Module):
                         param.requires_grad = True
 
         # ── Camera identity ────────────────────────────────────────────
-        self.camera_embed = nn.Embedding(num_cameras, vit_embed_dim)
+        self.camera_embed = nn.Embedding(num_cameras, backbone_dim)
 
         # ── Projection ─────────────────────────────────────────────────
-        self.proj = nn.Linear(vit_embed_dim, hidden_dim)
+        self.proj = nn.Linear(backbone_dim, hidden_dim)
         self.norm = nn.LayerNorm(hidden_dim)
 
     def forward(self, image: torch.Tensor, camera_id: int = 0) -> torch.Tensor:
-        """[B, 3, 224, 224] → [B, 197, hidden_dim]"""
-        features = self.backbone(image)
+        """
+        [B, 3, 224, 224] → [B, num_tokens, hidden_dim]
+        Works with ViT (token output) and CNN (spatial output) backbones.
+        """
+        raw = self.backbone(image)
+
+        # Reshape to [B, num_tokens, backbone_dim]
+        if self.backbone_type == "vit":
+            features = raw                                      # [B, N, D] already
+        elif self.backbone_type == "cnn_chw":
+            B, C, H, W = raw.shape
+            features = raw.flatten(2).transpose(1, 2)           # [B, H*W, C]
+        elif self.backbone_type == "cnn_hwc":
+            B, H, W, C = raw.shape
+            features = raw.reshape(B, H * W, C)                 # [B, H*W, C]
+
+        # Add camera identity
         cam_emb = self.camera_embed(
             torch.tensor(camera_id, device=image.device)
         )
         features = features + cam_emb.unsqueeze(0).unsqueeze(0)
+
         return self.norm(self.proj(features))
 
 

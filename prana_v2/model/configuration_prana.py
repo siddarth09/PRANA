@@ -30,10 +30,10 @@ class PranaConfig(PreTrainedConfig):
     # ── Model dimensions ───────────────────────────────────────────────
     hidden_dim: int = 256
     n_heads: int = 8
-    dim_feedforward: int = 512
+    dim_feedforward: int = 768
     n_encoder_layers: int = 4     # context encoder (vision + state)
-    n_decoder_layers: int = 7     # action decoder (cross-attention)
-    dropout: float = 0.1
+    n_decoder_layers: int = 8     # action decoder (cross-attention)
+    dropout: float = 0.05
 
     # ── Flow matching ──────────────────────────────────────────────────
     num_denoise_steps: int = 10   # denoising steps at inference
