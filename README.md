@@ -355,71 +355,29 @@ Standard imitation learning predicts actions via regression (L1/MSE), which lear
 
 ---
 
-## Results
-
-| Metric | v1 | v2 | v3 |
-|--------|----|----|-----|
-| Training loss | 0.334 (L1) | 0.50 (MSE) | 0.50 (MSE) |
-| Reaches screwdriver | Yes | Yes | Yes |
-| Grasps screwdriver | With assistance | Yes | Yes |
-| Places in box | No | With assistance | With assistance |
-| Inference speed | ~5ms | ~22ms | ~30ms |
-| Trainable params | ~8M | ~11M | ~30M |
-
----
-
-## Project Structure
-
-```
-PRANA/
-├── prana_v1/                    # Deterministic baseline
-│   └── model/
-│       ├── configuration_prana.py
-│       ├── encoders.py
-│       ├── modeling.py
-│       └── policy_prana.py
-├── prana_v2/                    # Flow matching (recommended)
-│   ├── model/
-│   │   ├── configuration_prana.py
-│   │   ├── encoders.py
-│   │   ├── modeling.py
-│   │   └── policy_prana.py
-│   ├── train_v2.py
-│   ├── deploy_v2.py
-│   └── fit_noise.py
-├── prana_v3/                    # DINOv2 backbone
-│   ├── model/
-│   │   ├── configuration_prana.py
-│   │   ├── encoder.py
-│   │   ├── modeling.py
-│   │   └── policy_prana.py
-│   ├── train_v3.py
-│   └── deploy_v3.py
-├── assets/
-│   ├── prana_v2_architecture.png
-│   └── prana_v3_architecture.png
-└── outputs/train/
+lerobot-record   --robot.type=so101_follower   --robot.port=/dev/ttyACM0   --robot.cameras='{
+    table: {
+      "type": "intelrealsense",
+      "serial_number_or_name": "103422071945",
+      "width": 640,
+      "height": 480,
+      "fps": 30
+    },
+    wrist: {
+      "type": "opencv",
+      "index_or_path": "/dev/video4",
+      "width": 640,
+      "height": 480,
+      "fps": 30
+    }
+  }'   --teleop.type=so101_leader   --teleop.port=/dev/ttyACM1   --display_data=true   --dataset.repo_id=Siddarth09/eval_prana_pick_place   --dataset.num_episodes=5   --dataset.single_task="Pick the screwdriver and place it in the box"   --dataset.push_to_hub=false   --policy.path=outputs/train/prana/checkpoints/last/pretrained_model   --policy.device=cuda --display_data=true
 ```
 
----
-
-## Citation
-
-```bibtex
-@misc{dayasagar2026prana,
-  title={PRANA: Flow Matching with Correlated Noise for Low-Data Robot Manipulation},
-  author={Dayasagar, Siddarth},
-  year={2026},
-  url={https://github.com/siddarth09/PRANA}
-}
-```
+## PRANA in Action
 
 ## Acknowledgments
 
-- [LeRobot](https://github.com/huggingface/lerobot) by Hugging Face
-- Flow matching inspired by [BEHAVIOR 2025 1st place solution](https://arxiv.org/abs/2512.06951)
-- Built at Northeastern University
+https://github.com/user-attachments/assets/66d3e3f6-ee64-4bb2-8b1f-c2aefe7c35a6
 
 ## License
 
-MIT

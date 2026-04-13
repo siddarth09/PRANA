@@ -7,7 +7,7 @@ class VisionEncoder(nn.Module):
     Process images using lightweight VisionTransformer
     """
 
-    def __init__(self,model_name: str = " vit_tiny_patch16_224",hidden_dim: int = 256):
+    def __init__(self,model_name: str = "vit_tiny_patch16_224",hidden_dim: int = 256):
         # Loading the ViT 
         super().__init__()
         self.backbone = timm.create_model(

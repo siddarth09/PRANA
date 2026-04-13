@@ -1,5 +1,6 @@
 ### The Architecture: PranaVLA (Phase 1.5) (DOCUMENTATION BY GEMINI)
 
+https://github.com/user-attachments/assets/2c76e889-c81b-4358-b8d3-a83f328b03b5
 
 1. **Sensory Encoders (The Inputs)**
 * **Vision:** The model ingests two simultaneous camera streams (a global `table` view and a local `wrist` view). These images are resized to 224x224 and passed through a pre-trained Vision Transformer (`vit_tiny_patch16_224`). The ViT divides the images into 16x16 patches and flattens them into spatial feature embeddings.
