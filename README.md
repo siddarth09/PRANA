@@ -2,11 +2,15 @@
 
 **Policy for Robotic Action via Neural Architecture**
 
+by Siddarth Dayasagar and Arpit Gandhi 
+
 PRANA is a vision-action policy for autonomous robot manipulation, evolving from deterministic action chunking (v1) to flow matching with correlated noise (v2/v3).
 
 [![HuggingFace v2](https://img.shields.io/badge/🤗_Model-PRANA__v2-yellow)](https://huggingface.co/Siddarth09/PRANA_v2)
 [![Dataset](https://img.shields.io/badge/🤗_Dataset-PRANA-blue)](https://huggingface.co/datasets/Siddarth09/PRANA)
 [![LeRobot](https://img.shields.io/badge/Framework-LeRobot_v0.5.1-green)](https://github.com/huggingface/lerobot)
+
+**VIDEO PRESENTATION**: https://canva.link/5y0ik0mh8dsv7i6
 
 **DATASET**: https://huggingface.co/datasets/Siddarth09/PRANA
 
